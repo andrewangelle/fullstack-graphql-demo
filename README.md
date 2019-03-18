@@ -3,11 +3,11 @@
   [![Uptime Robot status](https://img.shields.io/uptimerobot/status/m779426128-6b6e81ed8dc987db17d4cad2.svg)](https://stats.uptimerobot.com/nzx9jsLDw)
   <!-- [![Slack](https://img.shields.io/badge/slack-@amadev-yellow.svg?logo=slack)](https://amadev.slack.com/messages/CD6TEUCQP/) -->
 
-An full-stack demo for an e-commerce web-app.
+ [An full-stack demo  for an e-commerce web-app.](https://bcweb.me)
 
 ### Project Setup
 
-You'll need a copy of the .env
+You'll need a copy of the `.env`
 
 Clone the repo:
 
@@ -31,7 +31,9 @@ client will be running on http://localhost:3000
 
 a graphql playground for the server will be running on http://localhost:6006
 
-### Development - UI
+<hr />
+
+## Development - UI
 
 Built with react and typescript and uses Apollo to integrate a graphql client
 
@@ -68,7 +70,9 @@ $ cd packages/client && npm run build
 
 Open up the app at http://localhost:3000
 
-### Development - Server
+<hr />
+
+## Development - Server
 
 A graphql server built with Graphql, Apollo and Typescript.
 It features PostgresDB implemented with Prisma
