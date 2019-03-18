@@ -1,0 +1,51 @@
+{
+  "extends": "./tsconfig.paths.json",
+  "compilerOptions": {
+    "allowUnusedLabels": true,
+    "outDir": "build/dist",
+    "module": "esnext",
+    "target": "es5",
+    "lib": [
+      "es6",
+      "dom",
+      "esnext.asynciterable"
+    ],
+    "sourceMap": true,
+    "allowJs": true,
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "rootDir": ".",
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
+  },
+  "exclude": [
+    "node_modules",
+    "build",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+    "src/setupTests.ts",
+    "server",
+    "bcapi",
+    "bcgraph"
+  ],
+  "include": [
+    "src",
+    "src/components",
+    "src/store",
+    "src/tests"
+  ]
+}

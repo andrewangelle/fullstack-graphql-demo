@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "sourceMap": true,
+    "rootDir": ".",
+    "outDir": "dist",
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "src/*"
+      ],
+      "generated": [
+        "src/generated/*"
+      ],
+      "resolvers": [
+        "src/resolvers/*"
+      ],
+      "tests": [
+        "src/tests/*"
+      ],
+      "utils": [
+        "src/utils/*"
+      ]
+    }
+  }
+}

@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginForm renders login 1`] = `
+<form
+  className="ant-form ant-form-horizontal"
+  onSubmit={[Function]}
+>
+  <div
+    className="ant-row ant-form-item"
+  >
+    <div
+      className="ant-form-item-label"
+    >
+      <label
+        className=""
+        htmlFor={null}
+        onClick={[Function]}
+        title="email"
+      >
+        email
+      </label>
+    </div>
+    <div
+      className="ant-form-item-control-wrapper"
+    >
+      <div
+        className="ant-form-item-control"
+      >
+        <span
+          className="ant-form-item-children"
+        >
+          <input
+            className="ant-input"
+            disabled={false}
+            name="email"
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            title="email"
+            type="text"
+            value=""
+          />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    className="ant-row ant-form-item"
+  >
+    <div
+      className="ant-form-item-label"
+    >
+      <label
+        className=""
+        htmlFor={null}
+        onClick={[Function]}
+        title="password"
+      >
+        password
+      </label>
+    </div>
+    <div
+      className="ant-form-item-control-wrapper"
+    >
+      <div
+        className="ant-form-item-control"
+      >
+        <span
+          className="ant-form-item-children"
+        >
+          <input
+            className="ant-input"
+            disabled={false}
+            name="password"
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            title="password"
+            type="text"
+            value=""
+          />
+        </span>
+      </div>
+    </div>
+  </div>
+  <button
+    className="ant-btn ant-btn-primary"
+    onClick={[Function]}
+    style={
+      Object {
+        "marginLeft": "25%",
+        "marginRight": "25%",
+        "width": "50%",
+      }
+    }
+    type="button"
+  >
+    <span>
+      Login
+    </span>
+  </button>
+</form>
+`;

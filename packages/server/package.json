@@ -1,0 +1,59 @@
+{
+  "name": "server",
+  "private": true,
+  "scripts": {
+    "start": "dotenv -- nodemon -e ts,graphql -x ts-node -r tsconfig-paths/register src/index.ts",
+    "app": "npm-run-all --parallel start client",
+    "test": "jest",
+    "compile": "babel src --out-dir dist --extensions \".ts\" --ignore \"**/*.test.tsx\" --source-maps inline",
+    "client": "cd client && npm start",
+    "dev": "NODE_ENV=development npm-run-all --parallel start playground",
+    "debug": "dotenv -- nodemon -e ts,graphql -x ts-node --inspect src/index.ts",
+    "build": "rm -rf dist && graphql codegen && tsc",
+    "playground": "graphql playground"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/enzyme": "^3.9.0",
+    "@types/jest": "^24.0.11",
+    "@types/jsonwebtoken": "^8.3.2",
+    "@types/stripe": "^6.25.6",
+    "apollo-codegen": "^0.20.2",
+    "apollo-server-testing": "^2.4.8",
+    "dotenv-cli": "^1.4.0",
+    "enzyme": "^3.9.0",
+    "enzyme-to-json": "^3.3.5",
+    "graphql-cli": "^3.0.11",
+    "graphql-resolver-codegen": "0.0.3",
+    "jest": "^24.5.0",
+    "lerna": "^3.13.1",
+    "prisma": "^1.28.5",
+    "rimraf": "^2.6.3",
+    "ts-jest": "^24.0.0",
+    "typescript": "^3.3.3333"
+  },
+  "dependencies": {
+    "apollo-link-context": "^1.0.17",
+    "babel-polyfill": "^6.26.0",
+    "bcryptjs": "^2.4.3",
+    "graphql-yoga": "^1.17.4",
+    "jsonwebtoken": "^8.5.0",
+    "moment": "^2.24.0",
+    "node-fetch": "^2.3.0",
+    "nodemon": "^1.18.10",
+    "prisma-binding": "^2.3.8",
+    "prisma-client-lib": "^1.28.5",
+    "stripe": "^6.26.1",
+    "ts-node": "^8.0.3",
+    "tsconfig-paths": "^3.8.0"
+  },
+  "resolutions": {
+    "@types/graphql": "14.0.1",
+    "graphql": "14.0.2"
+  }
+}

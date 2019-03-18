@@ -1,0 +1,18 @@
+0 silly argv { _: [ 'clean' ],
+0 silly argv   y: true,
+0 silly argv   yes: true,
+0 silly argv   lernaVersion: '3.13.1',
+0 silly argv   '$0': 'node_modules\\lerna\\cli.js' }
+1 notice cli v3.13.1
+2 verbose rootPath C:\Users\Bitch\code\ecomm
+3 info clean removing C:\Users\Bitch\code\ecomm\packages\client\node_modules
+4 silly rimrafDir C:\Users\Bitch\code\ecomm\packages\client\node_modules
+5 info clean removing C:\Users\Bitch\code\ecomm\packages\server\node_modules
+6 silly rimrafDir C:\Users\Bitch\code\ecomm\packages\server\node_modules
+7 info clean removing C:\Users\Bitch\code\ecomm\packages\tests\node_modules
+8 silly rimrafDir C:\Users\Bitch\code\ecomm\packages\tests\node_modules
+9 verbose rimrafDir removed C:\Users\Bitch\code\ecomm\packages\tests\node_modules
+10 error Error: Command failed: C:\Program Files\nodejs\node.exe C:\Users\Bitch\code\ecomm\node_modules\rimraf\bin.js --no-glob C:\Users\Bitch\code\ecomm\packages\client\node_modules\
+10 error     at makeError (C:\Users\Bitch\code\ecomm\node_modules\@lerna\child-process\node_modules\execa\index.js:174:9)
+10 error     at Promise.all.then.arr (C:\Users\Bitch\code\ecomm\node_modules\@lerna\child-process\node_modules\execa\index.js:278:16)
+10 error     at <anonymous>
