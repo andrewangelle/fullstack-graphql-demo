@@ -69,11 +69,7 @@ $ cd packages/client && npm run build
 Open up the app at http://localhost:3000
 
 ### Development - Server
-  [![CircleCI](https://circleci.com/gh/begincoffees/bcapi.svg?style=shield)](https://circleci.com/gh/begincoffees/bcclient)
-  [![Uptime Robot status](https://img.shields.io/uptimerobot/status/m779426128-6b6e81ed8dc987db17d4cad2.svg)](https://stats.uptimerobot.com/nzx9jsLDw)
-Back end services for bcweb.me
 
-#### Description
 A graphql server built with Graphql, Apollo and Typescript.
 It features PostgresDB implemented with Prisma
 
