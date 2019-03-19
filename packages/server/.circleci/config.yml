@@ -15,6 +15,11 @@ jobs:
     steps:
       - restore_cache: *restore-cache
       - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - add_ssh_keys:
+          fingerprints:
+            - $DEPLOY_FINGERPRINT
       - run:
           name: Install deps
           command: npm install
@@ -42,10 +47,9 @@ jobs:
       - run: echo 'Build success for api.bcweb.me'
 
   deploy_server:
-    docker:
-      - image: circleci/node:10
+    docker: *node-docker
     steps:
-      - checkout
+      - restore_cache: *restore-cache
       - add_ssh_keys:
           fingerprints:
             - $DEPLOY_FINGERPRINT

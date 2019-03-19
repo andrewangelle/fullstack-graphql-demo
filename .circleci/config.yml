@@ -15,6 +15,11 @@ jobs:
     steps:
       - restore_cache: *restore-cache
       - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - add_ssh_keys:
+          fingerprints:
+            - $DEPLOY_FINGERPRINT
       - run:
           name: Bootstrap lerna
           command: npx lerna bootstrap
