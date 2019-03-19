@@ -2,7 +2,7 @@ FROM node:10 as build-stage
 WORKDIR /usr/app
 COPY ./package*.json /usr/app
 RUN npm install
-COPY ./ /usr/app
+COPY ./ /usr/app/
 RUN npm run build
 
 FROM nginx:1.15
