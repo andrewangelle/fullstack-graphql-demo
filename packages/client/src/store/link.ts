@@ -5,7 +5,7 @@ import { OperationDefinitionNode } from 'graphql';
 
 const wsToken = `${process.env.REACT_APP_PRISMA_WEB_SOCKET_TOKEN}` || ''
 const uri = process.env.REACT_APP_SERVER_URL || ''
-const wsUri = process.env.REACT_APP_PRISMA_WEB_SOCKET_LINK || 'http://localhost:6006/'
+const wsUri = process.env.REACT_APP_PRISMA_WEB_SOCKET_LINK || 'wss://localhost:6006/'
 
 /** http link */
 const httpLink = new HttpLink({
