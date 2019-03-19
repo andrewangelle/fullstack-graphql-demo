@@ -1,0 +1,58 @@
+version: 2.1
+
+_common:
+  node-docker: &node-docker
+    - image: circleci/node:10.13.0
+  restore-cache: &restore-cache
+    keys:
+      - bootstrap-v1-{{ package.json }}
+  attach-workspace: &attach-workspace
+    at: .
+
+jobs:
+  bootstrap:
+    docker: *node-docker
+    steps:
+      - restore_cache: *restore-cache
+      - checkout
+      - run:
+          name: Bootstrap lerna
+          command: npx lerna bootstrap
+      - save_cache:
+          key: bootstrap-v1-{{ package.json }}
+          paths:
+            - .
+
+  test_web:
+    docker: *node-docker
+    steps:
+      - restore_cache: *restore-cache
+      - run:
+          name: Run client tests
+          command: cd packages/client && npm test
+
+  build_web:
+    docker: *node-docker
+    steps:
+      - restore_cache: *restore-cache
+      - run:
+        name: Run client build
+        command: cd packages/client && npm run build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - packages/client/build
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - bootstrap
+
+      - test_web:
+          requires:
+            - bootstrap
+
+      - build_web:
+          requires:
+            - bootstrap
