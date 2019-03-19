@@ -1,6 +1,12 @@
+FROM node:10 as build-stage
+WORKDIR /usr/app
+COPY /packages/client/package*.json /usr/app
+RUN npm install
+COPY /packages/client/ /usr/app
+RUN npm run build
+
 FROM nginx:1.15
-WORKDIR /usr/share/
 RUN rm -rf /etc/nginx/conf.d/default.conf
-COPY /packages/client/build /usr/share/nginx/html
-COPY /packages/client/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build-stage /usr/app/build/ /usr/share/nginx/html
+COPY --from=build-stage /usr/app/nginx.conf /etc/nginx/conf.d/default.conf
 
