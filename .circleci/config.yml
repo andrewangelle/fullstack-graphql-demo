@@ -36,8 +36,8 @@ jobs:
     steps:
       - restore_cache: *restore-cache
       - run:
-        name: Run client build
-        command: cd packages/client && npm run build
+          name: Run client build
+          command: cd packages/client && npm run build
       - persist_to_workspace:
           root: .
           paths:
