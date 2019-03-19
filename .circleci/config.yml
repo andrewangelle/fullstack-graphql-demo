@@ -5,7 +5,7 @@ _common:
     - image: circleci/node:10.13.0
   restore-cache: &restore-cache
     keys:
-      - bootstrap-v1-{{ package.json }}
+      - dependency-cache-{{ checksum "package.json" }}
   attach-workspace: &attach-workspace
     at: .
 
@@ -19,7 +19,7 @@ jobs:
           name: Bootstrap lerna
           command: npx lerna bootstrap
       - save_cache:
-          key: bootstrap-v1-{{ checksum "package.json" }}
+          key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - .
 
