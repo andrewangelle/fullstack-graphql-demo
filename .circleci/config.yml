@@ -18,6 +18,9 @@ jobs:
       - run:
           name: Bootstrap lerna
           command: npx lerna bootstrap
+      - run:
+          name: Sanity check
+          command: ls home/circleci/project/package.json
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
@@ -56,3 +59,4 @@ workflows:
       - build_web:
           requires:
             - bootstrap
+            - test_web
