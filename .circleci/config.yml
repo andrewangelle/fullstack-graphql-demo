@@ -5,7 +5,7 @@ _common:
     - image: circleci/node:10.13.0
   restore-cache: &restore-cache
     keys:
-      - dependency-cache-{{ checksum "package.json" }}
+      - bootstrap-v1-{{ .Branch }}-{{ .Revision}}
   attach-workspace: &attach-workspace
     at: .
 
@@ -22,7 +22,7 @@ jobs:
           name: Sanity check
           command: ls home/circleci/project/package.json
       - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: bootstrap-v1-{{ .Branch }}-{{ .Revision }}
           paths:
             - .
 
