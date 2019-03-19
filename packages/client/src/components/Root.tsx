@@ -19,6 +19,7 @@ class Root extends React.Component<{}, RootState> {
 
   async componentDidMount() {
     const client = await createClient();
+    await (window as any).Stripe
     this.setState({ client })
   }
 

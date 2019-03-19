@@ -3,16 +3,15 @@ import { Query } from 'react-apollo';
 import { Alert, Row } from 'antd';
 
 import { BcContainer, Loader } from 'components/';
-import { currentUser } from 'store/';
+import { currentUser, userDefault } from 'store/';
 
 function LandingPage(props: any) {
   return (
     <Query query={currentUser}>
-      {({ data, loading }) => {
-        if (loading || !data) {
+      {({ data: { currentUser: user = userDefault }, loading }) => {
+        if (loading) {
           return <Loader />
         }
-        const user = data && data.currentUser
         return (
           <BcContainer>
             <Row style={{ margin: 'auto 3.75rem' }}>

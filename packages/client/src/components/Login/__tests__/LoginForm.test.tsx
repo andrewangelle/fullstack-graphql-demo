@@ -11,21 +11,17 @@ describe('LoginForm', () => {
   beforeAll(() => console.error = () => '')
   afterAll(() => { console.error = original })
 
+  const component = mockApollo(<LoginForm />, {
+    mocks: [loginMock],
+    cache: new InMemoryCache()
+  });
 
   it('renders login', async () => {
-    const component = await mockApollo(<LoginForm />, {
-      mocks: [loginMock],
-      cache: new InMemoryCache()
-    });
     await wait(0)
     expect(component.toJSON()).toMatchSnapshot();
   })
 
   it('sets inputs', async () => {
-    const component = await mockApollo(<LoginForm />, {
-      mocks: [loginMock],
-      cache: new InMemoryCache()
-    });
     await wait(0)
 
     const email = component.root.find(el => el.props.name === 'email')

@@ -1,0 +1,74 @@
+version: 2.1
+
+_common:
+  node-docker: &node-docker
+    - image: circleci/node:10.13.0
+  restore-cache: &restore-cache
+    keys:
+      - bootstrap-v1-{{ .Branch }}-{{ .Revision }}
+  attach-workspace: &attach-workspace
+    at: .
+
+jobs:
+  bootstrap:
+    docker: *node-docker
+    steps:
+      - restore_cache: *restore-cache
+      - checkout
+      - run:
+          name: Install deps
+          command: npm install
+      - save_cache:
+          key: bootstrap-v1-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - .
+
+  test_server:
+    docker: *node-docker
+    steps:
+      - restore_cache: *restore-cache
+      - run:
+          name: Run server tests
+          command: npm test
+
+  build_server_docker:
+    docker: *node-docker
+    steps:
+      - restore_cache: *restore-cache
+      - run: docker build -t bcgraph:latest .
+      - run: docker login --username $DOCKER_USER --password $DOCKER_PW
+      - run: docker tag bcgraph:latest bcapp/bcgraph:latest
+      - run: docker push bcapp/bcgraph:latest
+      - run: echo 'Build success for api.bcweb.me'
+
+  deploy_server:
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - $DEPLOY_FINGERPRINT
+      - run: ssh -oStrictHostKeyChecking=no -v $DROPLET_USER@$DROPLET_IP "bash deploy-api.sh"
+      - run: echo 'Deployment success For api.bcweb.me'
+
+      - test_server:
+          requires:
+            - bootstrap
+
+      - build_server_docker:
+          filters:
+            branches:
+              only: master
+          requires:
+            - bootstrap
+            - test_server
+
+      - deploy_server:
+          filters:
+            branches:
+              only: master
+          requires:
+            - bootstrap
+            - test_server
+            - build_server_docker

@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LandingPage renders landing page 1`] = `
+<main
+  className="ant-layout-content"
+  style={
+    Object {
+      "background": "#fff",
+      "children": <Row
+        gutter={0}
+        style={
+          Object {
+            "margin": "auto 3.75rem",
+          }
+        }
+      >
+        <Alert
+          banner={true}
+          message="Begin Coffees coming soon ..."
+          showIcon={false}
+          type="info"
+        />
+      </Row>,
+      "margin": "1.5rem 1rem",
+      "minHeight": 200,
+      "padding": "1.5rem",
+    }
+  }
+>
+  <div
+    className="ant-row"
+    style={
+      Object {
+        "margin": "auto 3.75rem",
+      }
+    }
+  >
+    <div
+      className="ant-alert ant-alert-info ant-alert-no-icon ant-alert-banner"
+      data-show={true}
+    >
+      <span
+        className="ant-alert-message"
+      >
+        Begin Coffees coming soon ...
+      </span>
+      <span
+        className="ant-alert-description"
+      />
+    </div>
+  </div>
+</main>
+`;

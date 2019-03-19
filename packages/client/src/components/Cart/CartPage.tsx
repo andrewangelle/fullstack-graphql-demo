@@ -4,7 +4,7 @@ import { Layout, Button } from 'antd';
 import { navigate } from '@reach/router';
 
 import { CartItems, Loader, } from 'components/'
-import { currentCart } from 'store/'
+import { currentCart, cartDefault } from 'store/'
 
 const { Sider, Header, Content } = Layout;
 
@@ -15,8 +15,8 @@ interface CartPageProps {
 function CartPage(props: CartPageProps): ReactElement<CartPageProps> {
   return (
     <Query query={currentCart}>
-      {({ data, loading }) => {
-        if (loading || !data) {
+      {({ data: { cart = cartDefault }, loading }) => {
+        if (loading) {
           return <Loader />
         }
         return (
@@ -24,13 +24,13 @@ function CartPage(props: CartPageProps): ReactElement<CartPageProps> {
             <Suspense fallback={<Loader />}>
 
               <Content>
-                <CartItems footer={true} {...data.cart} />
+                <CartItems footer={true} />
               </Content>
 
               <Sider theme="dark">
                 <Header style={{ textAlign: 'center' }}>
                   <h4 style={{ color: 'white' }}>
-                    Total: ${data.cart.totalPrice}
+                    Total: ${cart.totalPrice}
                   </h4>
 
                   <Button

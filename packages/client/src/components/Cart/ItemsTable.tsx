@@ -2,7 +2,7 @@ import React from 'react';
 import { Table, Row, Col, Button } from 'antd'
 
 import { ItemQuantity, RemoveIcon, Loader } from 'components/'
-import { clearCart, currentCart } from 'store/';
+import { clearCart, currentCart, cartDefault } from 'store/';
 import { Mutation, Query } from 'react-apollo';
 
 export interface ItemsTableProps {
@@ -15,8 +15,8 @@ export interface ItemsTableProps {
 function CartFooter() {
   return (
     <Query query={currentCart}>
-      {({ data, loading }) => {
-        if (loading || !data) {
+      {({ data: { cart = cartDefault }, loading }) => {
+        if (loading) {
           return <Loader />
         }
         return (
@@ -25,7 +25,7 @@ function CartFooter() {
               return (
                 <Row>
                   <Col span={9} push={18}>
-                    <h4>Total: ${`${data.cart.totalPrice}`}</h4>
+                    <h4>Total: ${`${cart.totalPrice}`}</h4>
                     <Button
                       type="ghost"
                       onClick={() => {
@@ -98,14 +98,13 @@ function ItemsTable(props: ItemsTableProps) {
 
   return (
     <Query query={currentCart}>
-      {({ data, loading }) => {
-        if (loading || !data) {
+      {({ data: { cart = cartDefault }, loading }) => {
+        if (loading) {
           return <Loader />
         }
-        const dataSource = data && data.cart && data.cart.items.length > 0 ? data.cart.items : []
         return (
           <Table
-            dataSource={dataSource}
+            dataSource={cart.items || []}
             columns={columns}
             pagination={false}
             style={props.style}

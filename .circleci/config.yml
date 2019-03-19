@@ -5,7 +5,7 @@ _common:
     - image: circleci/node:10.13.0
   restore-cache: &restore-cache
     keys:
-      - bootstrap-v1-{{ .Branch }}-{{ .Revision}}
+      - bootstrap-v1-{{ .Branch }}-{{ .Revision }}
   attach-workspace: &attach-workspace
     at: .
 
@@ -43,6 +43,29 @@ jobs:
           paths:
             - packages/client/build
 
+  build_web_docker:
+    docker: *node-docker
+    steps:
+      - restore_cache: *restore-cache
+      - run: echo 'Building image for bcweb.me'
+      - run: curl -X POST -H Content-type=application/json --data text='Deployment starting for bcweb.me' $SLACKHOOK
+      - run: docker build -t bcweb:latest .
+      - run: docker login --username $DOCKER_USER --password $DOCKER_PW
+      - run: docker tag bcweb:latest bcapp/bcweb:latest
+      - run: docker push bcapp/bcweb:latest
+      - run: echo 'Build success for bcweb.me'
+
+  deploy_web:
+    docker: *node-docker
+    steps:
+      - restore_cache: *restore-cache
+      - add_ssh_keys:
+          fingerprints:
+            - $DEPLOY_FINGERPRINT
+      - run: echo 'Deployment start for bcweb.me'
+      - run: ssh -oStrictHostKeyChecking=no -v $DROPLET_USER@$DROPLET_IP "bash ./deploy-web.sh"
+      - run: echo 'Deployment success for bcweb.me'
+
 workflows:
   version: 2
   build-and-deploy:
@@ -57,3 +80,22 @@ workflows:
           requires:
             - bootstrap
             - test_web
+
+      - build_web_docker:
+          filters:
+            branches:
+              only: master
+          requires:
+            - bootstrap
+            - test_web
+            - build_web
+
+      - deploy_web:
+          filters:
+            branches:
+              only: master
+          requires:
+            - bootstrap
+            - test_web
+            - build_web
+            - build_web_docker

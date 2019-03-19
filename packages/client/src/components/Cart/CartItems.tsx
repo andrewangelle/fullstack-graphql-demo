@@ -2,21 +2,21 @@ import React from 'react';
 import { Query } from 'react-apollo';
 
 import { ItemsTable, Loader } from 'components/';
-import { currentCart } from 'store/';
+import { currentCart, cartDefault } from 'store/';
 
 
 function CartItems(props: any) {
   return (
     <Query query={currentCart}>
-      {({ data, loading }) => {
-        if (loading || !data) {
+      {({ data: { cart = cartDefault }, loading }) => {
+        if (loading) {
           return <Loader />
         }
         return (
           <div style={{ minHeight: 'auto' }}>
             <ItemsTable
-              items={data.cart.items}
-              total={data.cart.totalPrice}
+              items={cart.items}
+              total={cart.totalPrice}
               {...props}
             />
           </div>
