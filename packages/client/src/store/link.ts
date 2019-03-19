@@ -3,9 +3,13 @@ import { getMainDefinition } from 'apollo-utilities';
 import { WebSocketLink } from 'apollo-link-ws';
 import { OperationDefinitionNode } from 'graphql';
 
+const wsToken = `${process.env.REACT_APP_PRISMA_WEB_SOCKET_TOKEN}` || ''
+const uri = process.env.REACT_APP_SERVER_URL || ''
+const wsUri = process.env.REACT_APP_PRISMA_WEB_SOCKET_LINK || 'http://localhost:6006/'
+
 /** http link */
 const httpLink = new HttpLink({
-  uri: `${process.env.REACT_APP_SERVER_URL}/bcgraph`,
+  uri: `${uri ? uri : 'http://localhost:6006'}/bcgraph`,
 })
 
 /** auth link */
@@ -21,9 +25,9 @@ const authLink = new ApolloLink((operation, forward: any) => {
 
 
 /** websocket link */
-const query = `?headers={Authorization:Bearer ${process.env.REACT_APP_PRISMA_WEB_SOCKET_TOKEN}}`
+const query = `?headers={Authorization:Bearer ${wsToken ? wsToken : ''}}`
 export const wsLink = new WebSocketLink({
-  uri: process.env.REACT_APP_PRISMA_WEB_SOCKET_LINK + query
+  uri: wsUri + query
 });
 
 
