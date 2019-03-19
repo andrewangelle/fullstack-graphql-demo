@@ -49,7 +49,7 @@ jobs:
       - restore_cache: *restore-cache
       - run: echo 'Building image for bcweb.me'
       - run: curl -X POST -H Content-type=application/json --data text='Deployment starting for bcweb.me' $SLACKHOOK
-      - run: docker build -t bcweb:latest .
+      - run: docker build -t bcweb:latest /packages/client/
       - run: docker login --username $DOCKER_USER --password $DOCKER_PW
       - run: docker tag bcweb:latest bcapp/bcweb:latest
       - run: docker push bcapp/bcweb:latest
