@@ -19,7 +19,7 @@ jobs:
           name: Bootstrap lerna
           command: npx lerna bootstrap
       - save_cache:
-          key: bootstrap-v1-{{ package*.json }}
+          key: bootstrap-v1-{{ checksum "package.json" }}
           paths:
             - .
 
