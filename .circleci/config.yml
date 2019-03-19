@@ -15,11 +15,6 @@ jobs:
     steps:
       - restore_cache: *restore-cache
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - add_ssh_keys:
-          fingerprints:
-            - $DEPLOY_FINGERPRINT
       - run:
           name: Bootstrap lerna
           command: npx lerna bootstrap
@@ -52,6 +47,11 @@ jobs:
     docker: *node-docker
     steps:
       - restore_cache: *restore-cache
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - add_ssh_keys:
+          fingerprints:
+            - $DEPLOY_FINGERPRINT
       - run: echo 'Building image for bcweb.me'
       - run: curl -X POST -H Content-type=application/json --data text='Deployment starting for bcweb.me' $SLACKHOOK
       - run: docker build -t bcweb:latest ./packages/client/
@@ -64,6 +64,8 @@ jobs:
     docker: *node-docker
     steps:
       - restore_cache: *restore-cache
+      - setup_remote_docker:
+          docker_layer_caching: true
       - add_ssh_keys:
           fingerprints:
             - $DEPLOY_FINGERPRINT
