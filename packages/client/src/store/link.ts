@@ -7,6 +7,8 @@ import { OperationDefinitionNode } from 'graphql';
 const uri = process.env.REACT_APP_SERVER_URL || 'http://localhost:6006'
 const httpLink = new HttpLink({ uri: `${uri}/bcgraph` })
 
+console.log(uri)
+
 /** auth link */
 const authToken = localStorage.getItem('BC_AUTH') || 'bigboi';
 const authLink = new ApolloLink((operation, forward: any) => {
