@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "start": "dotenv -- nodemon -e ts,graphql -x ts-node -r tsconfig-paths/register src/index.ts",
-    "test": "jest",
+    "test": "jest --watchAll",
     "compile": "babel src --out-dir dist --extensions \".ts\" --ignore \"**/*.test.tsx\" --source-maps inline",
     "dev": "NODE_ENV=development npm-run-all --parallel start playground",
     "debug": "dotenv -- nodemon -e ts,graphql -x ts-node --inspect src/index.ts",
@@ -36,7 +36,10 @@
     "typescript": "^3.3.3333"
   },
   "dependencies": {
+    "apollo-datasource-rest": "^0.3.2",
     "apollo-link-context": "^1.0.17",
+    "apollo-server": "^2.4.8",
+    "apollo-server-express": "^2.4.8",
     "babel-polyfill": "^6.26.0",
     "bcryptjs": "^2.4.3",
     "graphql-yoga": "^1.17.4",

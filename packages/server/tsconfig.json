@@ -23,11 +23,15 @@
         "src/resolvers/*"
       ],
       "tests": [
-        "src/tests/*"
+        "src/tests/*",
+        "src/tests/mocks/*"
       ],
       "utils": [
         "src/utils/*"
       ]
     }
-  }
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }

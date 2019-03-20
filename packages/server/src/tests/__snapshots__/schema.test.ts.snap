@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Queries Feed Query 1`] = `
+Object {
+  "data": Object {
+    "feed": Array [
+      Object {
+        "description": "A String",
+        "id": "af4ae2ad-0057-4d85-bfd5-aacc68326419",
+        "name": "A String",
+        "price": "A String",
+        "varietal": "A String",
+        "vendor": Object {
+          "id": "af4ae2ad-0057-4d85-bfd5-aacc68326419",
+        },
+      },
+      Object {
+        "description": "A String",
+        "id": "af4ae2ad-0057-4d85-bfd5-aacc68326419",
+        "name": "A String",
+        "price": "A String",
+        "varietal": "A String",
+        "vendor": Object {
+          "id": "af4ae2ad-0057-4d85-bfd5-aacc68326419",
+        },
+      },
+    ],
+  },
+}
+`;
+
+exports[`Queries Purchases Query 1`] = `
+Object {
+  "data": Object {
+    "viewer": Object {
+      "me": Object {
+        "purchases": Array [
+          Object {
+            "amount": "A String",
+            "id": "af4ae2ad-0057-4d85-bfd5-aacc68326419",
+            "items": Array [
+              Object {
+                "description": "A String",
+                "id": "af4ae2ad-0057-4d85-bfd5-aacc68326419",
+                "name": "A String",
+                "price": "A String",
+              },
+              Object {
+                "description": "A String",
+                "id": "af4ae2ad-0057-4d85-bfd5-aacc68326419",
+                "name": "A String",
+                "price": "A String",
+              },
+            ],
+          },
+          Object {
+            "amount": "A String",
+            "id": "af4ae2ad-0057-4d85-bfd5-aacc68326419",
+            "items": Array [
+              Object {
+                "description": "A String",
+                "id": "af4ae2ad-0057-4d85-bfd5-aacc68326419",
+                "name": "A String",
+                "price": "A String",
+              },
+              Object {
+                "description": "A String",
+                "id": "af4ae2ad-0057-4d85-bfd5-aacc68326419",
+                "name": "A String",
+                "price": "A String",
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+}
+`;
+
+exports[`Queries Viewer Query 1`] = `
+Object {
+  "data": Object {
+    "viewer": Object {
+      "me": Object {
+        "id": "af4ae2ad-0057-4d85-bfd5-aacc68326419",
+      },
+    },
+  },
+}
+`;

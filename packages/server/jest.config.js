@@ -19,6 +19,7 @@ module.exports = {
     "\\.(css)$": "<rootDir>/node_modules/jest-css-modules"
   },
   snapshotSerializers: ["enzyme-to-json/serializer"],
+  moduleDirectories: ['node_modules', 'src'],
   moduleFileExtensions: [
     "ts",
     "tsx",
