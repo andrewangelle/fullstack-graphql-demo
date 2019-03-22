@@ -1,6 +1,6 @@
 import React from 'react';
 import { Mutation, Query } from 'react-apollo';
-import { Layout, Menu, Icon } from 'antd';
+import { Menu, Icon } from 'antd';
 import { Link, navigate } from '@reach/router';
 
 import { navMenu, Loader } from 'components/';
@@ -8,8 +8,6 @@ import { logoutUser, currentCart, clearCart } from 'store/';
 import { CurrentUser } from 'types/';
 import { useBreakpoint } from 'utils/';
 import { mobileNavMenu } from 'components/constants';
-
-const { Header } = Layout;
 
 export type NavArgs = {
   [key: string]: any
