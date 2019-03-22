@@ -3,6 +3,7 @@
 exports[`CartPage renders cart page 1`] = `
 <section
   className="ant-layout ant-layout-has-sider"
+  style={Object {}}
 >
   <main
     className="ant-layout-content"
