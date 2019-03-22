@@ -6,6 +6,7 @@ import { Link, navigate } from '@reach/router';
 import { navMenu, Loader } from 'components/';
 import { logoutUser, currentCart, clearCart } from 'store/';
 import { CurrentUser } from 'types/';
+import { useBreakpoint } from 'utils/';
 
 const { Header } = Layout;
 
@@ -16,7 +17,10 @@ export type NavArgs = {
   user: CurrentUser;
 }
 
+
 function BcNav({ cartOpen, toggleCart, user, ...props }: NavArgs) {
+  const screenSize = useBreakpoint();
+  const mobile = screenSize === 'sm' || screenSize === 'xs';
   return (
     <Query query={currentCart}>
       {({ data, loading }) => {
@@ -28,59 +32,63 @@ function BcNav({ cartOpen, toggleCart, user, ...props }: NavArgs) {
             {logoutUser => (
               <Mutation mutation={clearCart}>
                 {clearCart =>
-                  <Header style={{ background: 'transparent' }}>
-                    <Menu
-                      theme="light"
-                      mode="horizontal"
-                      defaultSelectedKeys={[props.location]}
-                      style={navMenu}
-                      onClick={() => cartOpen && toggleCart()}
-                    >
-                      <Menu.Item key="/">
-                        <Link to="/">
-                          <span>Home</span>
-                        </Link>
-                      </Menu.Item>
+                  <Menu
+                    theme="light"
+                    mode="horizontal"
+                    defaultSelectedKeys={[props.location]}
+                    style={navMenu}
+                    onClick={() => cartOpen && toggleCart()}
+                  >
+                    <Menu.Item key="/">
+                      <Link to="/">
+                        {!mobile && <span>Home</span>}
+                        {mobile && <Icon type='home' />}
+                      </Link>
+                    </Menu.Item>
 
-                      <Menu.Item key="/shop">
-                        <Link to="/shop">
-                          <span>Shop</span>
-                        </Link>
-                      </Menu.Item>
+                    <Menu.Item key="/shop">
+                      <Link to="/shop">
+                        {!mobile && <span>Shop</span>}
+                        {mobile && <Icon type='shop' />}                        </Link>
+                    </Menu.Item>
 
-                      <Menu.Item
-                        key="/login"
-                        onClick={async () => {
-                          try {
-                            if (user.isLoggedIn) {
-                              logoutUser()
-                              clearCart()
-                            } else {
-                              navigate('/login')
-                            }
-                          } catch (err) {
-                            console.log({ logoutErr: err.message })
+                    <Menu.Item
+                      key="/login"
+                      onClick={async () => {
+                        try {
+                          if (user.isLoggedIn) {
+                            logoutUser()
+                            clearCart()
+                          } else {
+                            navigate('/login')
                           }
-                        }}
-                      >
-                        <span>{user.isLoggedIn ? 'Sign Out' : 'Sign In'}</span>
-                      </Menu.Item>
+                        } catch (err) {
+                          console.log({ logoutErr: err.message })
+                        }
+                      }}
+                    >
+                      {!mobile && <span>{user.isLoggedIn ? 'Sign Out' : 'Sign In'}</span>}
+                      {mobile && user.isLoggedIn && <Icon type='logout' />}
+                      {mobile && !user.isLoggedIn && <Icon type='logout' />}
+                    </Menu.Item>
 
-                      <Menu.Item key="/account">
-                        <Link to="/account">
-                          <span>Account</span>
-                        </Link>
-                      </Menu.Item>
+                    <Menu.Item key="/account">
+                      <Link to="/account">
+                        {!mobile && <span>Account</span>}
+                        {mobile && <Icon type='profile' />}
+                      </Link>
+                    </Menu.Item>
 
-                      <Menu.Item
-                        key="/cart"
-                        onClick={toggleCart}
-                      >
-                        <span>Cart {`(${data.cart.itemCount})`}</span>
-                        <Icon type="shopping-cart" />
-                      </Menu.Item>
-                    </Menu>
-                  </Header>
+                    <Menu.Item
+                      key="/cart"
+                      onClick={toggleCart}
+                    >
+                      {!mobile && <span>Cart {`(${data.cart.itemCount})`}</span>}
+
+                      <Icon type="shopping-cart" />
+                      {mobile && `(${data.cart.itemCount})`}
+                    </Menu.Item>
+                  </Menu>
                 }
               </Mutation>
             )}

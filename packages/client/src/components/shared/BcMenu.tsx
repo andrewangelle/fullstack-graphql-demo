@@ -10,6 +10,27 @@ import {
   Loader
 } from 'components/';
 import { currentUser } from 'store/';
+import { useBreakpoint } from 'utils/';
+
+function Responsive({ children }) {
+  const breakpoint = useBreakpoint()
+  switch (breakpoint) {
+    case 'xl':
+    case 'lg':
+    case 'md':
+      return (
+        <BcContainer padding='0rem'>
+          {children}
+        </BcContainer>
+      )
+    case 'sm':
+    case 'xs':
+      return (
+        <>{children}</>
+      )
+  }
+}
+
 
 function BcMenu({ ...props }: NavArgs) {
   const [cartOpen, toggleCart] = useState(false)
@@ -22,19 +43,17 @@ function BcMenu({ ...props }: NavArgs) {
         const user = data && data.currentUser
         return (
           <>
-            <Layout style={{ background: 'transparent' }}>
-              {cartOpen &&
-                <BcContainer margin="0.5rem 5rem" padding="0rem">
-                  <CartPage toggleCart={() => toggleCart(!cartOpen)} />
-                </BcContainer>
-              }
+            {cartOpen &&
+              <Responsive>
+                <CartPage toggleCart={() => toggleCart(!cartOpen)} />
+              </Responsive>
+            }
 
-              <BcNav
-                user={user}
-                cartOpen={cartOpen}
-                toggleCart={() => toggleCart(!cartOpen)}
-              />
-            </Layout>
+            <BcNav
+              user={user}
+              cartOpen={cartOpen}
+              toggleCart={() => toggleCart(!cartOpen)}
+            />
             {props.children}
           </>
         )

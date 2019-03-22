@@ -27,6 +27,7 @@ export function useWindowWidth() {
 }
 
 export function calcBreakpt(width: number) {
+  console.log(width)
   if (width > 1280) {
     return 'xl'
   }
@@ -36,7 +37,7 @@ export function calcBreakpt(width: number) {
   if ((width <= 980) && (width > 736)) {
     return 'md'
   }
-  if ((width <= 736) && (width > 480)) {
+  if ((width <= 736) && (width > 500)) {
     return 'sm'
   }
   return 'xs'
