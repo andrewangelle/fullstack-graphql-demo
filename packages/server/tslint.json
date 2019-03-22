@@ -2,6 +2,9 @@
   "extends": [
     "tslint-config-prettier"
   ],
+  "exclude": [
+    "node_modules"
+  ],
   "defaultSeverity": "warning",
   "rules": {
     "align": [

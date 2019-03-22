@@ -7,7 +7,7 @@
     "compile": "babel src --out-dir dist --extensions \".ts\" --ignore \"**/*.test.tsx\" --source-maps inline",
     "dev": "NODE_ENV=development npm-run-all --parallel start playground",
     "debug": "dotenv -- nodemon -e ts,graphql -x ts-node --inspect src/index.ts",
-    "build": "rm -rf dist && graphql codegen && tsc",
+    "build": "rm -rf dist && tsc",
     "playground": "graphql playground"
   },
   "devDependencies": {
