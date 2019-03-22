@@ -7,6 +7,7 @@ import { navMenu, Loader } from 'components/';
 import { logoutUser, currentCart, clearCart } from 'store/';
 import { CurrentUser } from 'types/';
 import { useBreakpoint } from 'utils/';
+import { mobileNavMenu } from 'components/constants';
 
 const { Header } = Layout;
 
@@ -21,6 +22,7 @@ export type NavArgs = {
 function BcNav({ cartOpen, toggleCart, user, ...props }: NavArgs) {
   const screenSize = useBreakpoint();
   const mobile = screenSize === 'sm' || screenSize === 'xs';
+  const navStyle = mobile ? ({ ...mobileNavMenu }) : ({ ...navMenu })
   return (
     <Query query={currentCart}>
       {({ data, loading }) => {
@@ -36,20 +38,20 @@ function BcNav({ cartOpen, toggleCart, user, ...props }: NavArgs) {
                     theme="light"
                     mode="horizontal"
                     defaultSelectedKeys={[props.location]}
-                    style={navMenu}
+                    style={navStyle as any}
                     onClick={() => cartOpen && toggleCart()}
                   >
                     <Menu.Item key="/">
                       <Link to="/">
                         {!mobile && <span>Home</span>}
-                        {mobile && <Icon type='home' />}
+                        {mobile && <Icon style={{ color: 'white' }} type='home' />}
                       </Link>
                     </Menu.Item>
 
                     <Menu.Item key="/shop">
                       <Link to="/shop">
                         {!mobile && <span>Shop</span>}
-                        {mobile && <Icon type='shop' />}                        </Link>
+                        {mobile && <Icon style={{ color: 'white' }} type='shop' />}                        </Link>
                     </Menu.Item>
 
                     <Menu.Item
@@ -75,7 +77,7 @@ function BcNav({ cartOpen, toggleCart, user, ...props }: NavArgs) {
                     <Menu.Item key="/account">
                       <Link to="/account">
                         {!mobile && <span>Account</span>}
-                        {mobile && <Icon type='profile' />}
+                        {mobile && <Icon style={{ color: 'white' }} type='profile' />}
                       </Link>
                     </Menu.Item>
 
@@ -85,7 +87,7 @@ function BcNav({ cartOpen, toggleCart, user, ...props }: NavArgs) {
                     >
                       {!mobile && <span>Cart {`(${data.cart.itemCount})`}</span>}
 
-                      <Icon type="shopping-cart" />
+                      <Icon style={{ color: 'white' }} type="shopping-cart" />
                       {mobile && `(${data.cart.itemCount})`}
                     </Menu.Item>
                   </Menu>

@@ -48,7 +48,6 @@ function BcMenu({ ...props }: NavArgs) {
                 <CartPage toggleCart={() => toggleCart(!cartOpen)} />
               </Responsive>
             }
-
             <BcNav
               user={user}
               cartOpen={cartOpen}

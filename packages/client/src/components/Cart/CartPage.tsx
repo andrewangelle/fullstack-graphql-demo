@@ -1,9 +1,13 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { Layout } from 'antd';
 
-import { CartItems, Loader, } from 'components/'
+import {
+  CartItems,
+  CartPrice,
+  CheckoutButton,
+  ClearCartButton
+} from 'components/Cart'
 import { useBreakpoint } from 'utils/';
-import { CheckoutButton, ClearCartButton, CartPrice } from './ItemsTable';
 
 const { Sider, Header, Content, Footer } = Layout;
 
