@@ -74,21 +74,14 @@ class ProductCard extends Component<CardProps, State> {
   render() {
     let next = Math.floor((Math.random() * 100) + 1);
     return (
-      <Col
-        span={6}
-        onClick={() => {
-          // this.props.viewPage(this.props.data)
-          // navigate('/product')
-          console.info('product clicked')
-        }}
-      >
+      <>
         {this.state.loading ?
           <Card style={{ display: 'flex', alignContent: 'center' }}>
             <Spin style={{ margin: 'auto', width: '10rem' }} />
           </Card>
           : this.showData(next)
         }
-      </Col>
+      </>
     )
   }
 }

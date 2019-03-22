@@ -1,65 +1,41 @@
 import 'babel-polyfill'
 import {
   makeExecutableSchema,
-  addMockFunctionsToSchema,
   mockServer
 } from 'graphql-tools';
-import { typeDefs } from '../generated/prisma-client/prisma-schema';
-import { graphql } from 'graphql';
 
-const productsExpected = {
-  id: '1',
-  name: 'A String',
-  description: 'A String',
-  price: 'A String'
+import {
+  typeDefsMock as typeDefs,
+  purchaseQuery,
+  feedQuery,
+  viewerQuery
+} from 'tests/mocks'
+
+const schema = makeExecutableSchema({ typeDefs });
+const mocks = {
+  Boolean: () => false,
+  ID: () => 'af4ae2ad-0057-4d85-bfd5-aacc68326419',
+  Int: () => 1,
+  Float: () => 12.34,
+  String: () => 'A String',
 }
-const productsQueryTest = {
-  id: 'Products Query Test',
-  query: `
-    query {
-      products {
-        id
-        name
-        description
-        price
-      }
-    }
-  `,
-  variables: {},
-  context: {},
-  expected: {
-    data: {
-      products: [productsExpected, productsExpected]
-    }
-  }
-};
+const server = mockServer(schema, mocks, false);
 
-describe('Schema', () => {
-  const cases = [productsQueryTest];
-  const mockSchema = makeExecutableSchema({ typeDefs });
-
-  addMockFunctionsToSchema({
-    schema: mockSchema,
-    mocks: {
-      Boolean: () => false,
-      ID: () => '1',
-      Int: () => 1,
-      Float: () => 12.34,
-      String: () => 'A String',
-    }
+/** tests */
+describe('Queries', () => {
+  it('Feed Query', async () => {
+    const test = await server.query(feedQuery);
+    expect(test).toMatchSnapshot()
   });
 
-  it('has valid type definitions', async () => {
-    expect(async () => {
-      const MockServer = mockServer(typeDefs, {});
-      await MockServer.query(`{ __schema { types { name } } }`);
-    }).not.toThrow();
+  it('Purchases Query', async () => {
+    const test = await server.query(purchaseQuery);
+    expect(test).toMatchSnapshot()
   });
 
-  it('Products Query', async () => {
-    const { query, variables, context: ctx, expected } = cases[0]
-    const testQuery = await graphql(mockSchema, query, null, { ctx }, variables);
-
-    expect(testQuery).toMatchObject(expected)
-  });
+  it('Viewer Query', async () => {
+    const test = await server.query(viewerQuery);
+    expect(test).toMatchSnapshot()
+  })
 });
+

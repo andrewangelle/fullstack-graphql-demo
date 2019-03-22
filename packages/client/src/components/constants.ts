@@ -8,16 +8,16 @@ export const centerStyles = props => ({
   width: props.width || '50%',
   marginLeft: 'auto',
   marginRight: 'auto'
-}) 
+})
 
 export const contentWrapperStyles = {
-  margin: '24px 16px', 
-  padding: 24, 
-  background: '#fff', 
-  minHeight: 800 
+  margin: '24px 16px',
+  padding: 24,
+  background: '#fff',
+  minHeight: 800
 }
 
-export const lightBlue = {color: '#1890ff'}
+export const lightBlue = { color: '#1890ff' }
 
 export const formItemLayout = {
   labelCol: { span: 4 },
@@ -40,4 +40,17 @@ export const navMenu = {
   display: 'flex',
   justifyContent: 'space-between',
   border: 'none'
+}
+
+export const mobileNavMenu = {
+  backgroundColor: 'rgb(0, 21, 41)',
+  color: 'white',
+  margin: '0px auto',
+  display: 'flex',
+  justifyContent: 'space-between',
+  border: 'none',
+  position: 'fixed',
+  bottom: '0',
+  width: '100%',
+  zIndex: '10'
 }

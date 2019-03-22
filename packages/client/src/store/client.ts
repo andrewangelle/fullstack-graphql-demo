@@ -6,6 +6,7 @@ import { link, setDefaults, typeDefs, resolvers } from 'store/';
 
 async function createClient() {
   const cache = new InMemoryCache();
+
   await persistCache({
     cache,
     storage: window.localStorage as any

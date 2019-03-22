@@ -1,3 +1,10 @@
+export * from './resolvers';
+export * from './tests';
+export * from './utils';
+
+
+
+
 import 'babel-polyfill';
 import { GraphQLServer } from 'graphql-yoga'
 import { makeExecutableSchema } from 'graphql-tools';

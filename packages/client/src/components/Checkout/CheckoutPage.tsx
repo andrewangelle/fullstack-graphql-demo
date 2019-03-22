@@ -7,6 +7,7 @@ import {
   ItemsTable,
   ShippingForm,
   AuthorizeForm,
+  BcContainer,
 } from 'components/';
 import {
   checkoutMutation,
@@ -18,9 +19,30 @@ import {
   CheckoutProvider,
 } from 'store/';
 import PaymentForm from './PaymentForm';
+import { useBreakpoint } from 'utils/';
 
 
 const Step = Steps.Step
+
+function Responsive({ children }) {
+  const breakpoint = useBreakpoint()
+  switch (breakpoint) {
+    case 'xl':
+    case 'lg':
+    case 'md':
+      return (
+        <Card >
+          {children}
+        </Card>
+      )
+    case 'sm':
+    case 'xs':
+      return (
+        <>{children}</>
+      )
+  }
+}
+
 
 function CheckoutPage() {
   return (
@@ -89,24 +111,21 @@ function CheckoutContainer(props: any) {
   return (
     <Layout.Content>
       {checkout.stepper.step === 0 &&
-        <Card>
+        <Responsive>
           <ItemsTable
             hideHeadings={true}
             style={{ height: 'auto', margin: '0.5rem 3rem 1rem 3rem' }}
-            footer={false}
           />
-          <section style={{ width: '15%', margin: '1px auto' }}>
-            {
-              <Button
-                type="primary"
-                onClick={() => dispatch.updateStepper({ items: true, step: 1 })}
-                disabled={!cart.items.length}
-              >
-                Confirm Items
-              </Button>
-            }
+          <section style={{ width: '15%', marginLeft: 'auto', marginRight: 'auto' }}>
+            <Button
+              type="primary"
+              onClick={() => dispatch.updateStepper({ items: true, step: 1 })}
+              disabled={!cart.items.length}
+            >
+              Confirm Items
+            </Button>
           </section>
-        </Card>
+        </Responsive>
       }
 
       {checkout.stepper.items && !checkout.stepper.done &&

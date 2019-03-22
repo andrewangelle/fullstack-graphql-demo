@@ -5,28 +5,20 @@ import { Row } from 'antd';
 import { BcContainer, ProductList, Loader } from 'components/';
 import { feed } from 'store/';
 
-function ShopContainer() {
+function ShopPage() {
   return (
     <Query query={feed}>
-      {({ data, loading }) => {
+      {({ data: { feed = [] }, loading }) => {
         if (loading) {
           return <Loader />
         }
         return (
-          <ProductList products={data && data.feed || []} />
+          <BcContainer>
+            <ProductList products={feed} />
+          </BcContainer>
         )
       }}
     </Query>
-  )
-}
-
-function ShopPage() {
-  return (
-    <BcContainer>
-      <Row style={{ margin: 'auto 3.75rem' }}>
-        <ShopContainer />
-      </Row>
-    </BcContainer>
   )
 }
 

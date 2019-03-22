@@ -1,10 +1,9 @@
 {
   "extends": [
-    "tslint-react",
     "tslint-config-prettier"
   ],
   "exclude": [
-    "server"
+    "node_modules"
   ],
   "defaultSeverity": "warning",
   "rules": {
@@ -67,7 +66,7 @@
     "no-string-literal": false,
     "no-switch-case-fall-through": true,
     "no-trailing-whitespace": false,
-    "no-unused-expression": false,
+    "no-unused-expression": true,
     "no-use-before-declare": true,
     "one-line": [
       true,

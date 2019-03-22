@@ -1,26 +1,46 @@
-import React from 'react';
-import { Row } from 'antd';
+import React, { useMemo } from 'react';
+import { Row, Col } from 'antd';
+
 import { ProductCard, Loader } from 'components/';
+import { useBreakpoint } from 'utils/layout';
 import { ListProps, ProductData } from 'types/';
 
-function ProductList({ products = [] }: ListProps) {
+function useProductColSpan() {
+  const size = useBreakpoint();
+  switch (size) {
+    case 'xl':
+      return 6
+    case 'lg':
+      return 6
+    case 'md':
+      return 8
+    case 'sm':
+      return 12
+    case 'xs':
+      return 24
+  }
+}
+
+export function ProductList({ products = [] }: ListProps) {
+  const span = useProductColSpan();
+  const memoized = useMemo(() => span, [span]);
+
   if (!products) {
     return <Loader />
   }
+
   return (
-    <Row style={{ margin: 'auto 3.75rem' }}>
-      <span>
-        {products.map((item, index) => (
+    <Row>
+      {products.map((item, index) =>
+        <Col key={item.id} span={memoized}>
           <ProductCard
             key={item.id}
             data={item}
             index={index}
             viewPage={(product: ProductData) => null}
           />
-        ))}
-      </span>
+        </Col>
+      )}
     </Row>
   )
 }
-
-export { ProductList }
