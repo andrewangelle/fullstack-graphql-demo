@@ -13,13 +13,11 @@ function CartItems(props: any) {
           return <Loader />
         }
         return (
-          <div style={{ minHeight: 'auto' }}>
-            <ItemsTable
-              items={cart.items}
-              total={cart.totalPrice}
-              {...props}
-            />
-          </div>
+          <ItemsTable
+            items={cart.items}
+            total={cart.totalPrice}
+            {...props}
+          />
         )
       }}
     </Query>

@@ -93,7 +93,6 @@ function CheckoutContainer(props: any) {
           <ItemsTable
             hideHeadings={true}
             style={{ height: 'auto', margin: '0.5rem 3rem 1rem 3rem' }}
-            footer={false}
           />
           <section style={{ width: '15%', margin: '1px auto' }}>
             {

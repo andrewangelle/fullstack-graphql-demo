@@ -1,56 +1,48 @@
-import React, { ReactElement, Suspense } from 'react';
-import { Query } from 'react-apollo';
-import { Layout, Button } from 'antd';
-import { navigate } from '@reach/router';
+import React, { ReactElement } from 'react';
+import { Layout } from 'antd';
 
 import { CartItems, Loader, } from 'components/'
-import { currentCart, cartDefault } from 'store/'
+import { useBreakpoint } from 'utils/';
+import { CheckoutButton, ClearCartButton, CartPrice } from './ItemsTable';
 
-const { Sider, Header, Content } = Layout;
+const { Sider, Header, Content, Footer } = Layout;
 
-interface CartPageProps {
-  readonly toggleCart: () => void;
+export function CartActions({ toggleCart }) {
+  const breakpoint = useBreakpoint();
+  switch (breakpoint) {
+    case 'xl':
+    case 'lg':
+    case 'md':
+      return (
+        <Sider theme="dark">
+          <Header style={{ textAlign: 'center' }}>
+            <CartPrice color='white' />
+          </Header>
+          <Footer style={{ backgroundColor: '#001529', justifyContent: 'space-around' }}>
+            <CheckoutButton toggleCart={toggleCart} style={{ margin: '0.25rem auto' }} />
+            <ClearCartButton />
+          </Footer>
+        </Sider>
+      )
+    case 'sm':
+    case 'xs':
+      return (
+        <>
+          <CartPrice color='black' />
+          <CheckoutButton toggleCart={toggleCart} style={{}} />
+          <ClearCartButton />
+        </>
+      )
+  }
 }
 
-function CartPage(props: CartPageProps): ReactElement<CartPageProps> {
+export function CartPage({ toggleCart }) {
   return (
-    <Query query={currentCart}>
-      {({ data: { cart = cartDefault }, loading }) => {
-        if (loading) {
-          return <Loader />
-        }
-        return (
-          <Layout>
-            <Suspense fallback={<Loader />}>
-
-              <Content>
-                <CartItems footer={true} />
-              </Content>
-
-              <Sider theme="dark">
-                <Header style={{ textAlign: 'center' }}>
-                  <h4 style={{ color: 'white' }}>
-                    Total: ${cart.totalPrice}
-                  </h4>
-
-                  <Button
-                    type="default"
-                    onClick={() => {
-                      props.toggleCart();
-                      navigate('/checkout')
-                    }}
-                  >
-                    Checkout
-                  </Button>
-                </Header>
-              </Sider>
-
-            </Suspense>
-          </Layout>
-        )
-      }}
-    </Query>
+    <Layout>
+      <Content>
+        <CartItems />
+      </Content>
+      <CartActions toggleCart={toggleCart} />
+    </Layout>
   )
 }
-
-export { CartPage }

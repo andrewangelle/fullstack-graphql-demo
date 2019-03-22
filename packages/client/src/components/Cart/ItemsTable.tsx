@@ -1,9 +1,11 @@
 import React from 'react';
+import { Mutation, Query } from 'react-apollo';
+import { navigate } from '@reach/router';
 import { Table, Row, Col, Button } from 'antd'
 
 import { ItemQuantity, RemoveIcon, Loader } from 'components/'
 import { clearCart, currentCart, cartDefault } from 'store/';
-import { Mutation, Query } from 'react-apollo';
+
 
 export interface ItemsTableProps {
   hideHeadings?: boolean;
@@ -12,7 +14,7 @@ export interface ItemsTableProps {
   footer?: boolean;
 }
 
-function CartFooter() {
+export function CartPrice({ color }: { color?: string }) {
   return (
     <Query query={currentCart}>
       {({ data: { cart = cartDefault }, loading }) => {
@@ -20,31 +22,46 @@ function CartFooter() {
           return <Loader />
         }
         return (
-          <Mutation mutation={clearCart}>
-            {clearCart => {
-              return (
-                <Row>
-                  <Col span={9} push={18}>
-                    <h4>Total: ${`${cart.totalPrice}`}</h4>
-                    <Button
-                      type="ghost"
-                      onClick={() => {
-                        clearCart()
-                      }}
-                    >
-                      <a > Clear Cart</a>
-                    </Button>
-                  </Col>
-                </Row>
-              )
-            }}
-          </Mutation>
+          <h4 style={{ color, textAlign: 'center' }}>
+            Total: ${`${cart.totalPrice}`}
+          </h4>
         )
       }}
     </Query>
-
   )
 }
+
+export function CheckoutButton({ toggleCart, style }: { toggleCart: () => void, style: any }) {
+  return (
+    <Button
+      type="primary"
+      style={style}
+      onClick={() => {
+        toggleCart();
+        navigate('/checkout')
+      }}
+    >
+      Checkout
+    </Button>
+  )
+}
+
+export function ClearCartButton(style: any) {
+  return (
+    <Mutation mutation={clearCart}>
+      {clearCart =>
+        <Button
+          type="danger"
+          style={style}
+          onClick={() => clearCart()}
+        >
+          <a>Clear Cart</a>
+        </Button>
+      }
+    </Mutation>
+  )
+}
+
 
 function ItemsTable(props: ItemsTableProps) {
 
@@ -108,7 +125,6 @@ function ItemsTable(props: ItemsTableProps) {
             columns={columns}
             pagination={false}
             style={props.style}
-            footer={() => props.footer ? <CartFooter /> : null}
           />
         )
       }}
