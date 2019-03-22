@@ -7,7 +7,6 @@ import { ListProps, ProductData } from 'types/';
 
 function useProductColSpan() {
   const size = useBreakpoint();
-  console.log(size)
   switch (size) {
     case 'xl':
       return 6
@@ -25,8 +24,6 @@ function useProductColSpan() {
 export function ProductList({ products = [] }: ListProps) {
   const span = useProductColSpan();
   const memoized = useMemo(() => span, [span]);
-
-  console.log(memoized)
 
   if (!products) {
     return <Loader />
