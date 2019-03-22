@@ -45,12 +45,12 @@ export const navMenu = {
 export const mobileNavMenu = {
   backgroundColor: 'rgb(0, 21, 41)',
   color: 'white',
-  position: 'fixed',
-  bottom: '0',
-  width: '100%',
   margin: '0px auto',
   display: 'flex',
   justifyContent: 'space-between',
   border: 'none',
+  position: 'fixed',
+  bottom: '0',
+  width: '100%',
   zIndex: '10'
 }

@@ -40,9 +40,18 @@ export function CartActions({ toggleCart }) {
   }
 }
 
+const mobileStyles = {
+  position: 'fixed',
+  top: '0',
+  width: '100%',
+  zIndex: '10'
+}
 export function CartPage({ toggleCart }) {
+  const screenSize = useBreakpoint();
+  const mobile = screenSize === 'sm' || screenSize === 'xs';
+  const styles = mobile ? ({ ...mobileStyles }) : ({})
   return (
-    <Layout>
+    <Layout style={{ ...styles }}>
       <Content>
         <CartItems />
       </Content>
