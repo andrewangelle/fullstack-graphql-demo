@@ -7,21 +7,22 @@ import {
 import {
   typeDefsMock as typeDefs,
   purchaseQuery,
-  feedQuery
+  feedQuery,
+  viewerQuery
 } from 'tests/mocks'
 
+const schema = makeExecutableSchema({ typeDefs });
+const mocks = {
+  Boolean: () => false,
+  ID: () => 'af4ae2ad-0057-4d85-bfd5-aacc68326419',
+  Int: () => 1,
+  Float: () => 12.34,
+  String: () => 'A String',
+}
+const server = mockServer(schema, mocks, false);
 
 /** tests */
 describe('Queries', () => {
-  const mockSchema = makeExecutableSchema({ typeDefs });
-  const server = mockServer(mockSchema, {
-    Boolean: () => false,
-    ID: () => 'af4ae2ad-0057-4d85-bfd5-aacc68326419',
-    Int: () => 1,
-    Float: () => 12.34,
-    String: () => 'A String',
-  });
-
   it('Feed Query', async () => {
     const test = await server.query(feedQuery);
     expect(test).toMatchSnapshot()
@@ -33,7 +34,7 @@ describe('Queries', () => {
   });
 
   it('Viewer Query', async () => {
-    const test = await server.query(`query { viewer { me { id } } }`);
+    const test = await server.query(viewerQuery);
     expect(test).toMatchSnapshot()
   })
 });

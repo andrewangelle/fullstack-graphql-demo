@@ -14,6 +14,48 @@ export const feedQuery = `
   }
 `
 
+export const viewerQuery = `
+  query{
+    viewer {
+      me {
+        id
+        role
+        email
+        permissions
+        firstName
+        lastName
+        bizName
+        products {
+          id
+          name
+          price
+          description
+          varietal
+        }
+        purchases {
+          id
+          amount
+          items {
+            id
+            name
+            price
+          }
+        }
+        sales {
+          id
+          amount
+          email
+          items {
+            id
+            name
+            price
+          }
+        }
+      }
+    }
+  }
+`
+
 export const productsExpected = {
   id: '1',
   name: 'A String',
